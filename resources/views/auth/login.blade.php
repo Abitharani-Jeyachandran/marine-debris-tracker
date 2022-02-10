@@ -53,11 +53,11 @@
 
                   <div class="form-group row mb-0">
                     <div class="col-md-8 offset-md-4">
-                      <button type="submit" class="btn btn-primary">
+                      <button type="submit" class="btn" style="background-color:#274D6C; color:#fff;">
                         {{ __('Login') }}
                       </button>
 
-                        <a class="btn btn-link" href="/password/reset" style="text-decoration: none;">
+                        <a class="btn btn-link" href="/password/reset" style="text-decoration: none; color:#274D6C">
                           Forgot Your Password?
                         </a>
                     </div>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Marine Debris Tracker') }}</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -21,6 +21,9 @@
 </head>
 
 <body>
+    <div class="page-loader" id="page-loader" >
+        <img src="/assets/images/fading_balls.gif" class="m-auto" />
+      </div>
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
@@ -29,52 +32,20 @@
             </div>
 
             <ul class="list-unstyled components">
-                {{-- <p>Dummy Heading</p> --}}
-                {{-- <li class={{ (request()->is('/home')) ? 'active' : '' }}>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
-                </li> --}}
                 <li class={{ (request()->is('home')) ? 'active' : '' }}>
                     <a href="{{route('home')}}">Home</a>
                 </li>
-                {{-- <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li> --}}
-                <li class={{ (request()->is('collectios*')) ? 'active' : '' }}>
-                    <a href="{{route('collections.index')}}">Collections</a>
+                <li class={{ (request()->is('users*')) ? 'active' : '' }}>
+                    <a href="{{route('users.index')}}">Users</a>
                 </li>
-                <li class={{ (request()->is('test*')) ? 'active' : '' }}>
-                    <a href="{{route('test.index')}}">Students</a>
+                <li class={{ (request()->is('user-ranking*')) ? 'active' : '' }}>
+                    <a href="{{route('user-ranking.index')}}">User Ranking</a>
                 </li>
-            </ul>
-
-            <ul class="list-unstyled CTAs">
-                <li>
-                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                <li class={{ (request()->is('admin*')) ? 'active' : '' }}>
+                    <a href="{{route('admin.index')}}">Admins</a>
                 </li>
-                <li>
-                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                <li class={{ (request()->is('location-bases-collection*')) ? 'active' : '' }}>
+                    <a href="{{route('location-bases-collection.index')}}">Location Based Collections</a>
                 </li>
             </ul>
         </nav>
@@ -96,15 +67,14 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item">
-                            <a class="dropdown-item btn-dark" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                          </li>
+                                <a href="{{route('profile.index')}}" class="btn btn-md btn-warning mr-1 mb-2 mt-1"><i class="fas fa-user-circle"></i> Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <button  onclick="logout()" class="btn btn-md btn-secondary mr-1 mb-2 mt-1"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -134,6 +104,28 @@
         });
     </script>
 
+    <script>
+        function logout() {
+            Swal.fire({
+                title: 'Are you sure?',
+                html: "You want to logout" ,
+                showCancelButton: true,
+                confirmButtonColor: '#274D6C',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Yes"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                $('#logout-form').submit();
+                }
+            })
+        }
+    </script>
+
+    <script>
+        $(window).on('load', function() {
+            setTimeout(function(){ $('.page-loader').fadeOut('slow'); }, 1000);
+        });
+    </script>
     @stack('scripts')
 </body>
 

@@ -1065,16 +1065,16 @@
         },
         {
             "name": "google/cloud-firestore",
-            "version": "v1.20.1",
+            "version": "v1.20.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-firestore.git",
-                "reference": "18e6aa08704e7b2cc93c997dbce417c514e7ac35"
+                "reference": "111caab5a1697172f4d7db9aa15bd3b9e4b465c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-firestore/zipball/18e6aa08704e7b2cc93c997dbce417c514e7ac35",
-                "reference": "18e6aa08704e7b2cc93c997dbce417c514e7ac35",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-firestore/zipball/111caab5a1697172f4d7db9aa15bd3b9e4b465c1",
+                "reference": "111caab5a1697172f4d7db9aa15bd3b9e4b465c1",
                 "shasum": ""
             },
             "require": {
@@ -1113,9 +1113,9 @@
             ],
             "description": "Cloud Firestore client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-firestore/tree/v1.20.1"
+                "source": "https://github.com/googleapis/google-cloud-php-firestore/tree/v1.20.2"
             },
-            "time": "2021-10-20T17:52:15+00:00"
+            "time": "2021-12-10T17:55:49+00:00"
         },
         {
             "name": "google/cloud-storage",
