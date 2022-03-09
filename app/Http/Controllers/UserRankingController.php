@@ -28,7 +28,7 @@ class UserRankingController extends Controller
     {
         $users =  $this->firestore->database()->collection($this->collection)->documents();
         foreach($users as $key => $value){
-            $data = array('user'=> $value['name'], 'count' => 0 );
+            $data = array('user_id' => $value->id(), 'user'=> $value['name'], 'count' => 0 );
             $userHostedevents = $this->firestore->database()->collection('event_data')->where('host', 'array-contains',$value->id())->documents();
             foreach ($userHostedevents as $doc) {
                 $data['count'] =  $data['count'] + 1;
@@ -68,9 +68,28 @@ class UserRankingController extends Controller
      * @param  \App\Models\UserRanking  $userRanking
      * @return \Illuminate\Http\Response
      */
-    public function show(UserRanking $userRanking)
+    public function show($id)
     {
-        //
+        $snapshot = $this->firestore->database()->collection($this->collection)->document($id)->snapshot();
+        $user= $snapshot->data();
+
+        $collections = $this->firestore->database()->collection('event_data')->where('host', 'array-contains',$id)->documents();
+        $datas = array("Bags"=>0 , "Bottles"=>0 , "Containers"=>0 , "Others" => 0);
+
+        foreach($collections as $key => $value){
+            $dataOfValue = $value->data();
+            $datas['Bags'] = $datas['Bags'] + ((int)$dataOfValue['bag_count']);
+            $datas['Bottles'] = $datas['Bottles'] + ((int)$dataOfValue['bottle_count']);
+            $datas['Containers'] = $datas['Containers'] + ((int)$dataOfValue['container_count']);
+            $datas['Others'] = $datas['Others'] + ((int)$dataOfValue['other_count']);
+        }
+
+        if($user){
+            return view('user-rankings.view',compact('user','datas'));
+        }else{
+            toastr()->error('Resource not found.');
+            return redirect()->route('users.index');
+        }
     }
 
     /**

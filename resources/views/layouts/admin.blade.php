@@ -47,6 +47,9 @@
                 <li class={{ (request()->is('location-bases-collection*')) ? 'active' : '' }}>
                     <a href="{{route('location-bases-collection.index')}}">Location Based Collections</a>
                 </li>
+                <li class={{ (request()->is('zones*')) ? 'active' : '' }}>
+                    <a href="{{route('zones.index')}}">Zones</a>
+                </li>
             </ul>
         </nav>
 

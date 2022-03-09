@@ -12,7 +12,7 @@ use Kreait\Firebase\ServiceAccount;
 use Google\Cloud\Firestore\FirestoreClient;
 use kreait\Laravel\Firebase\Facades\Firebase;
 
-class LocationBasedCollectionController extends Controller
+class ZoneController extends Controller
 {
     public function __construct(Firestore $firestore)
     {
@@ -57,9 +57,32 @@ class LocationBasedCollectionController extends Controller
             }
             $datas[$key] = $result2;
         }
-        $remove = array_shift($datas);
-        // dd('doc-count - ',$count, 'docdata-', $docDatas, 'L1-sorted-',$result1, 'L2-sorted',$datas);
-        return view('location-collections.index',compact('datas'));
+
+        foreach($datas as $key => $values){
+            $result3 = array('total' => 0);
+            $result3['total'] = ((int)$values['Bags']) + ((int)$values['Bottles']) + ((int)$values['Containers']) + ((int)$values['Others']);
+            $tdatas[$key] = $result3; //location based total collection
+        }
+
+        foreach($result1 as $key => $values){
+            $tdatas[$key]['count'] = count($values); //moment counts
+        }
+
+        $remove = array_shift($tdatas);
+        foreach($tdatas as $key => $value){
+            $final[$key]= $value['total'] / ($value['count'] * 100);
+        }
+
+        $reds = array();
+        $blues = array();
+        foreach($final as $key => $value){
+            if($value < 60){
+                $blues[] = $key . ' - ' .$value.' %';
+            }else{
+                $reds[] = $key . ' - ' .$value.' %';
+            }
+        }
+        return view('zones.index',compact('reds','blues'));
     }
 
     /**
@@ -86,10 +109,10 @@ class LocationBasedCollectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\LocationBasedCollection  $locationBasedCollection
+     * @param  \App\Models\Zone  $zone
      * @return \Illuminate\Http\Response
      */
-    public function show(LocationBasedCollection $locationBasedCollection)
+    public function show(Zone $zone)
     {
         //
     }
@@ -97,10 +120,10 @@ class LocationBasedCollectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\LocationBasedCollection  $locationBasedCollection
+     * @param  \App\Models\Zone  $zone
      * @return \Illuminate\Http\Response
      */
-    public function edit(LocationBasedCollection $locationBasedCollection)
+    public function edit(Zone $zone)
     {
         //
     }
@@ -109,10 +132,10 @@ class LocationBasedCollectionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\LocationBasedCollection  $locationBasedCollection
+     * @param  \App\Models\Zone  $zone
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LocationBasedCollection $locationBasedCollection)
+    public function update(Request $request, Zone $zone)
     {
         //
     }
@@ -120,10 +143,10 @@ class LocationBasedCollectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\LocationBasedCollection  $locationBasedCollection
+     * @param  \App\Models\Zone  $zone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LocationBasedCollection $locationBasedCollection)
+    public function destroy(Zone $zone)
     {
         //
     }

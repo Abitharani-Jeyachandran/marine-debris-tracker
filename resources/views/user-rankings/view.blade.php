@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>View User
-                            <a href="{{route('users.index')}}" class="btn btn-sm btn-warning float-end">Back</a>
+                            <a href="{{route('user-ranking.index')}}" class="btn btn-sm btn-warning float-end">Back</a>
                         </h4>
                     </div>
                     <div class="card-body">

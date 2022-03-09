@@ -39,6 +39,7 @@ Route::resource('/event_datas', App\Http\Controllers\EventDataController::class)
 Route::resource('/admin', App\Http\Controllers\AdminController::class);
 Route::resource('/user-ranking', App\Http\Controllers\UserRankingController::class);
 Route::resource('/location-bases-collection', App\Http\Controllers\LocationBasedCollectionController::class);
+Route::resource('/zones', App\Http\Controllers\ZoneController::class);
 
 Auth::routes();
 

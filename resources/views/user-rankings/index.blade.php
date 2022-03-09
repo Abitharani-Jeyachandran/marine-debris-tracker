@@ -10,9 +10,6 @@
                         <div>
                         <h4>User Rankings</h4>
                         </div>
-                        <!--<div>
-                            <a href="{{route('users.create')}}" class="btn btn-lg btn-primary float-end">Add Student</a>
-                        </div>-->
                         </h4>
                         </div>
                     </div>
@@ -31,17 +28,17 @@
                                 @foreach ($datas as $key => $value)
                                 <tr>
                                     <td style="width: 33%">{{$key + 1}}</td>
-                                    <td style="width: 33%">{{$value['user']}}</td>
+                                    <td style="width: 33%">
+                                        <a href="{{route('user-ranking.show',$value['user_id'])}}">
+                                        {{$value['user']}}
+                                        </a>
+                                    </td>
                                     <td style="width: 33%">{{$value['count']}}</td>
                                     {{-- <td style="width: 25%; color:#fff">
-                                        <a style="background-color:#274D6C;" class="btn btn-md" href="{{route('users.show',$value->id())}}"><i class="fas fa-eye"></i> Show</a>
-                                        <!--<a class="btn btn-md btn-warning" href="{{route('users.edit',$value->id())}}"><i class="fas fa-edit"></i> Edit</a>-->
-                                        <button  onclick="deleteConfirmation('{{$value->id()}}')" class="btn btn-md btn-danger mr-1"><i class="fas fa-trash"></i> Delete</button>
-                                        <form action="{{route('users.destroy',$value->id())}}" method="post" id='form-data-{{$value->id()}}'>
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </td> --}}
+                                        <a style="background-color:#274D6C;" class="btn btn-md"
+                                        href="{{route('user-ranking.show',$value['user_id'])}}"
+                                        ><i class="fas fa-eye"></i> Show</a> --}}
+                                    </td>
                                 </tr>
                                 @endforeach
                                 @else
